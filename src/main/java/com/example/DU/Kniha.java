@@ -8,13 +8,20 @@ public class Kniha {
     public String priezviskoAutor;
     public int pocetKnih;
 
-    public Kniha(long id, String name, String isbn, String menoAutor, String priezviskoAutor) {
+    public Kniha(long id, String name, String isbn, String menoAutor, String priezviskoAutor, int pocetKnih) {
         this.id = id;
         this.name = name;
         this.isbn = isbn;
         this.menoAutor = menoAutor;
         this.priezviskoAutor = priezviskoAutor;
+        this.pocetKnih = pocetKnih;
     }
+
+    public Kniha(long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public Kniha() {
 
     }
