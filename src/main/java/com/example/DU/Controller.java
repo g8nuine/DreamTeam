@@ -14,22 +14,25 @@ public class Controller {
 
     private final List<Kniha> knihy = new ArrayList<>();
     private final List<Klient> klienty = new ArrayList<>();
-    private List<PozKniha> ZaznamPozKnih = new ArrayList<>();
+    private final List<PozKniha> zaznamPozKnih = new ArrayList<>();
 
     @GetMapping("/")
     public String home(Model model){
         model.addAttribute("title", "home page");
         return "home";
     }
-
     //work with books
-    @GetMapping("/api/book{idBook}") //show book by id
-    public List<Kniha> getBook(){
+    @GetMapping("/api/books") //show all books
+    public List<Kniha> getBooks(){
         //TODO
         return knihy;
     }
+    @GetMapping("/api/book{bookId}") // show book by id
+    public List<Kniha> getBook(){
+        return knihy;
+    }
     @PostMapping("/create/book") //create book
-    public Kniha createKniha(@RequestParam long id, String name, String isbn, String nameAuthor, String lastNameAuthor, int pocet){
+    public Kniha createBook(@RequestParam long id, String name, String isbn, String nameAuthor, String lastNameAuthor, int pocet){
         Kniha kniha = new Kniha();
         kniha.id = id;
         kniha.name = name;
@@ -40,8 +43,19 @@ public class Controller {
         knihy.add(kniha);
         return kniha;
     }
-    @PostMapping("/create/customer")
-    public Klient createKlient(@RequestParam long id, String name, String lastName, String mail){
+    @PostMapping("/edit/book{bookId}") //edit book
+    public Kniha editBook(@RequestParam Kniha k){
+        //TODO
+        return k;
+    }
+    @PostMapping("/delete/book{bookId}") //delete books by id
+    public Kniha deleteBook(Kniha k){
+        //k = null;
+        return k;
+    }
+    // praca z klintami
+    @PostMapping("/create/customer") //create customers
+    public Klient createCustomer(@RequestParam long id, String name, String lastName, String mail){
         Klient klient = new Klient();
         klient.id = id;
         klient.meno = name;
@@ -50,15 +64,27 @@ public class Controller {
         klienty.add(klient);
         return klient;
     }
-
-    @GetMapping("/api/customers{klientId}") //TODO zaznam klientov podla id
-    public List<Klient> getKlientyById(@RequestParam Klient klient){
+    @PostMapping("/edit/customers{customerId}") //edit customers
+    public Klient editCustomer(Klient klient){
+        return klient;
+    }
+    @GetMapping("/api/customers{klientId}") //list of customers by id
+    public List<Klient> getCustomerById(@RequestParam Klient klient){
         return klienty;
         //TODO
     }
-    @GetMapping("/api/customers/all")
-    public List<Klient> getKlienty(){
+    @GetMapping("/api/customers/all") // show all customers
+    public List<Klient> getCustomers(){
         return klienty;
     }
+    @PostMapping("/rent/book")  //rent books
+    public PozKniha rentBook(@RequestParam Kniha kniha, Klient klient, PozKniha pozKniha){
+        if (kniha.pocetKnih > 0){
+            zaznamPozKnih.add(pozKniha);
+        }
+        kniha.pocetKnih--;
+        return pozKniha;
+    }
+
 
 }
