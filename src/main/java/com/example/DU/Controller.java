@@ -39,6 +39,16 @@ public class Controller {
     public Kniha getKniha(@PathVariable long id) {
         //TODO
         Kniha k = new Kniha();
+        for(int i = 0; i < knihy.size(); i++){
+            if(knihy.get(i).id == id){
+                k.id = knihy.get(i).id;
+                k.name = knihy.get(i).name;
+                k.menoAutor = knihy.get(i).menoAutor;
+                k.priezviskoAutor = knihy.get(i).priezviskoAutor;
+                k.isbn = knihy.get(i).isbn;
+                k.pocetKnih = knihy.get(i).pocetKnih;
+            }
+        }
         return k;
     }
     @DeleteMapping("/api/book")
