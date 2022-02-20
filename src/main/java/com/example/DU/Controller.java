@@ -31,11 +31,11 @@ public class Controller {
         knihy.add(kniha);
         return kniha;
     }
-    @GetMapping("/api/book")
+    @GetMapping("/api/book") // return all books
     public List<Kniha> getKnihy(){
         return knihy;
     }
-    @GetMapping("/api/book/{id}")
+    @GetMapping("/api/book/{id}") // find the book by id
     public Kniha getKniha(@PathVariable long id) {
         Kniha k = new Kniha();
         for(int i = 0; i < knihy.size(); i++){
@@ -50,7 +50,7 @@ public class Controller {
         }
         return k;
     }
-    @DeleteMapping("/api/book/{id}")
+    @DeleteMapping("/api/book/{id}") // delete the book by id
     public Kniha deleteKniha(@PathVariable long id) {
         for(int i = 0; i < knihy.size(); i++){
             if(knihy.get(i).id == id){
@@ -65,7 +65,7 @@ public class Controller {
         klienty.add(klient);
         return klient;
     }
-    @PostMapping("/api/customers/by-name")
+    @PostMapping("/api/customers/by-name") // create customer
     public Klient create(@RequestParam long id, String meno, String priezvisko, String email){
         Klient klient = new Klient();
         klient.id = id;
@@ -75,11 +75,11 @@ public class Controller {
         klienty.add(klient);
         return klient;
     }
-    @GetMapping("/api/customers")
+    @GetMapping("/api/customers") // return all customers
     public List<Klient> getKlienty(){
         return klienty;
     }
-    @GetMapping("/api/customers/{id}")
+    @GetMapping("/api/customers/{id}") // find the customers by id
     public Klient getKlient(@PathVariable long id) {
         //TODO
         Klient klient = new Klient();
@@ -93,7 +93,7 @@ public class Controller {
         }
         return klient;
     }
-    @DeleteMapping("/api/customers/{id}")
+    @DeleteMapping("/api/customers/{id}") // delete the customer by id
     public Klient deleteKlient(@PathVariable long id){
         for(int i = 0; i < klienty.size(); i++){
             if(klienty.get(i).id == id){
@@ -108,22 +108,38 @@ public class Controller {
         zaznamPozKnih.add(pozKniha);
         return pozKniha;
     }
-    @PostMapping("/api/borrowing/by-name")
+    @PostMapping("/api/borrowing/by-name") // create borrowing
     public  PozKniha create(@RequestParam long id, Klient vypozicovatel, Kniha kniha){
-        //TODO
-        return null;
+        PozKniha pk = new PozKniha();
+        pk.id = id;
+        pk.vypozicovatel = vypozicovatel;
+        pk.kniha = kniha;
+        zaznamPozKnih.add(pk);
+        return pk;
     }
-    @GetMapping("/api/borrowing")
+    @GetMapping("/api/borrowing") // return all borrowings
     public List<PozKniha> getZaznamPozKnih(){
         return zaznamPozKnih;
     }
-    @GetMapping("/api/borrowing/{id}")
+    @GetMapping("/api/borrowing/{id}") // find borrowing by id
     public PozKniha getPozKnihaPodlaId(@PathVariable long id){
-        //TODO
-        return null;
+        PozKniha pk = new PozKniha();
+        for(int i = 0; i < zaznamPozKnih.size(); i++){
+            if(zaznamPozKnih.get(i).id == id){
+                pk.id = zaznamPozKnih.get(i).id;
+                pk.kniha = zaznamPozKnih.get(i).kniha;
+                pk.vypozicovatel = zaznamPozKnih.get(i).vypozicovatel;
+            }
+        }
+        return pk;
     }
-    @DeleteMapping("/api/borrowing")
-    public PozKniha deletePozKniha(){
+    @DeleteMapping("/api/borrowing/{id}") // delete the borrowing by id
+    public PozKniha deletePozKniha(@PathVariable long id){
+        for(int i = 0; i < zaznamPozKnih.size(); i++){
+            if(zaznamPozKnih.get(i).id == id){
+                zaznamPozKnih.remove(i);
+            }
+        }
         return null;
     }
 }
