@@ -37,7 +37,6 @@ public class Controller {
     }
     @GetMapping("/api/book/{id}")
     public Kniha getKniha(@PathVariable long id) {
-        //TODO
         Kniha k = new Kniha();
         for(int i = 0; i < knihy.size(); i++){
             if(knihy.get(i).id == id){
@@ -51,9 +50,13 @@ public class Controller {
         }
         return k;
     }
-    @DeleteMapping("/api/book")
-    public Kniha deleteKniha() {
-        //TODO
+    @DeleteMapping("/api/book/{id}")
+    public Kniha deleteKniha(@PathVariable long id) {
+        for(int i = 0; i < knihy.size(); i++){
+            if(knihy.get(i).id == id){
+                knihy.remove(i);
+            }
+        }
         return null;
     }
 
@@ -80,11 +83,23 @@ public class Controller {
     public Klient getKlient(@PathVariable long id) {
         //TODO
         Klient klient = new Klient();
+        for(int i = 0; i < klienty.size(); i++){
+            if(klienty.get(i).id == id){
+                klient.id = klienty.get(i).id;
+                klient.meno = klienty.get(i).meno;
+                klient.priezvisko = klienty.get(i).priezvisko;
+                klient.email = klienty.get(i).email;
+            }
+        }
         return klient;
     }
-    @DeleteMapping("/api/customers")
-    public Klient deleteKlient(){
-        //TODO
+    @DeleteMapping("/api/customers/{id}")
+    public Klient deleteKlient(@PathVariable long id){
+        for(int i = 0; i < klienty.size(); i++){
+            if(klienty.get(i).id == id){
+                klienty.remove(i);
+            }
+        }
         return null;
     }
 
