@@ -55,7 +55,10 @@ public class Controller {
     @PostMapping("/api/customers/by-name")
     public Klient create(@RequestParam long id, String meno, String priezvisko, String email){
         Klient klient = new Klient();
-        //TODO
+        klient.id = id;
+        klient.meno = meno;
+        klient.priezvisko = priezvisko;
+        klient.email = email;
         klienty.add(klient);
         return klient;
     }
@@ -80,7 +83,7 @@ public class Controller {
         zaznamPozKnih.add(pozKniha);
         return pozKniha;
     }
-    @PostMapping("/api/borrowing")
+    @PostMapping("/api/borrowing/by-name")
     public  PozKniha create(@RequestParam long id, Klient vypozicovatel, Kniha kniha){
         //TODO
         return null;
