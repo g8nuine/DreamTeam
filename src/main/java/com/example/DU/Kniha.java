@@ -23,6 +23,5 @@ public class Kniha {
     }
 
     public Kniha() {
-
     }
 }

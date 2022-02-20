@@ -3,6 +3,7 @@ package com.example.DU;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,81 +14,88 @@ public class Controller {
     private final List<Klient> klienty = new ArrayList<>();
     private final List<PozKniha> zaznamPozKnih = new ArrayList<>();
 
-    @GetMapping("/api")
-    public String home(Model model){
-        model.addAttribute("title", "home page");
-        return "home";
+    @PostMapping("/api/book")
+    public Kniha create(@RequestBody Kniha kniha){
+        knihy.add(kniha);
+        return kniha;
     }
-    //work with books
-    @GetMapping("/api/book/?title=<title search string>") //show all books
-    public List<Kniha> getBooks(){
-        //TODO
-        return knihy;
-    }
-    @GetMapping("/api/book{bookId}") // show book by id
-    public List<Kniha> getBook(){
-        return knihy;
-    }
-    @PostMapping("/api/book") //create book
-    public Kniha createBook(@RequestParam long id, String name, String isbn, String nameAuthor, String lastNameAuthor, int pocet){
+    @PostMapping("/api/book/by-name") //create book
+    public Kniha create(@RequestParam long id, String name, String isbn, String menoAutor, String priezviskoAutor, int pocetKnih) {
         Kniha kniha = new Kniha();
         kniha.id = id;
         kniha.name = name;
         kniha.isbn = isbn;
-        kniha.menoAutor = nameAuthor;
-        kniha.priezviskoAutor = lastNameAuthor;
-        kniha.pocetKnih = pocet;
+        kniha.menoAutor = menoAutor;
+        kniha.priezviskoAutor = priezviskoAutor;
+        kniha.pocetKnih = pocetKnih;
         knihy.add(kniha);
         return kniha;
     }
-    @PostMapping("/api/book{id}") //edit book
-    public Kniha editBook(@RequestParam Kniha k){
+    @GetMapping("/api/book")
+    public List<Kniha> getKnihy(){
+        return knihy;
+    }
+    @GetMapping("/api/book/{id}")
+    public Kniha getKniha(@PathVariable long id) {
         //TODO
+        Kniha k = new Kniha();
         return k;
     }
-    @PostMapping("/api/book{id}") //delete books by id
-    public Kniha deleteBook(Kniha k){
-        //k = null;
-        return k;
+    @DeleteMapping("/api/book")
+    public Kniha deleteKniha() {
+        //TODO
+        return null;
     }
-    // praca z klintami
-    @PostMapping("/api/customers") //create customers
-    public Klient createCustomer(@RequestParam long id, String name, String lastName, String mail){
-        Klient klient = new Klient();
-        klient.id = id;
-        klient.meno = name;
-        klient.priezvisko = lastName;
-        klient.email = mail;
+
+    @PostMapping("/api/customers")
+    public Klient create(@RequestBody Klient klient){
         klienty.add(klient);
         return klient;
     }
-    @PostMapping("/api/customers{id}") //edit customers
-    public Klient editCustomer(Klient klient){
+    @PostMapping("/api/customers/by-name")
+    public Klient create(@RequestParam long id, String meno, String priezvisko, String email){
+        Klient klient = new Klient();
+        //TODO
+        klienty.add(klient);
         return klient;
     }
-    @GetMapping("/api/customers{id}") //list of customers by id
-    public List<Klient> getCustomerById(@RequestParam Klient klient){
+    @GetMapping("/api/customers")
+    public List<Klient> getKlienty(){
         return klienty;
-        //TODO
     }
-    @GetMapping("/api/customers") // show all customers
-    public List<Klient> getCustomers(){
-        return klienty;
+    @GetMapping("/api/customers/{id}")
+    public Klient getKlient(@PathVariable long id) {
+        //TODO
+        Klient klient = new Klient();
+        return klient;
+    }
+    @DeleteMapping("/api/customers")
+    public Klient deleteKlient(){
+        //TODO
+        return null;
     }
 
     @PostMapping("/api/borrowing")
-    public PozKniha borrowingBook(@RequestParam Kniha kniha, Klient klient, PozKniha pozKniha){
-        if (kniha.pocetKnih > 0){
-            zaznamPozKnih.add(pozKniha);
-        }
-        kniha.pocetKnih--;
+    public PozKniha create(@RequestBody PozKniha pozKniha){
+        zaznamPozKnih.add(pozKniha);
         return pozKniha;
     }
-    @GetMapping("/api/borrowing/{id}")
-    @DeleteMapping("/api/borrowing/{id}")
-    public PozKniha deleteBook(@RequestParam PozKniha kniha){
-        return kniha;
+    @PostMapping("/api/borrowing")
+    public  PozKniha create(@RequestParam long id, Klient vypozicovatel, Kniha kniha){
+        //TODO
+        return null;
     }
-
-
+    @GetMapping("/api/borrowing")
+    public List<PozKniha> getZaznamPozKnih(){
+        return zaznamPozKnih;
+    }
+    @GetMapping("/api/borrowing/{id}")
+    public PozKniha getPozKnihaPodlaId(@PathVariable long id){
+        //TODO
+        return null;
+    }
+    @DeleteMapping("/api/borrowing")
+    public PozKniha deletePozKniha(){
+        return null;
+    }
 }
