@@ -115,13 +115,30 @@ public class Controller {
         return pozKniha;
     }
     @PostMapping("/api/borrowing/by-name") // create borrowing
-    public  PozKniha create(@RequestParam long id, Klient vypozicovatel, Kniha kniha){
-        PozKniha pk = new PozKniha();
-        pk.id = id;
-        pk.vypozicovatel = vypozicovatel;
-        pk.kniha = kniha;
-        zaznamPozKnih.add(pk);
-        return pk;
+    public  PozKniha create(@RequestParam long borrowingId, long vypozicovatelId, long knihaId){
+        boolean knihaFlag = false;
+        boolean vypozicovatelFlag = false;
+        for(int i = 0; i < knihy.size(); i++){
+            if(knihy.get(i).id == knihaId){
+                knihaFlag = true;
+            }
+        }
+        for(int i = 0; i < klienty.size(); i++){
+            if(klienty.get(i).id == vypozicovatelId){
+                vypozicovatelFlag = true;
+            }
+        }
+        if(knihaFlag && vypozicovatelFlag){
+            PozKniha pk = new PozKniha();
+            pk.borrowingId = borrowingId;
+            pk.vypozicovatelId = vypozicovatelId;
+            pk.knihaId = knihaId;
+            zaznamPozKnih.add(pk);
+            return pk;
+        }
+        else{
+            return null;
+        }
     }
     @GetMapping("/api/borrowing") // return all borrowings
     public List<PozKniha> getZaznamPozKnih(){
@@ -131,10 +148,10 @@ public class Controller {
     public PozKniha getPozKnihaPodlaId(@PathVariable long id){
         PozKniha pk = new PozKniha();
         for(int i = 0; i < zaznamPozKnih.size(); i++){
-            if(zaznamPozKnih.get(i).id == id){
-                pk.id = zaznamPozKnih.get(i).id;
-                pk.kniha = zaznamPozKnih.get(i).kniha;
-                pk.vypozicovatel = zaznamPozKnih.get(i).vypozicovatel;
+            if(zaznamPozKnih.get(i).borrowingId == id){
+                pk.borrowingId = zaznamPozKnih.get(i).borrowingId;
+                pk.vypozicovatelId = zaznamPozKnih.get(i).vypozicovatelId;
+                pk.knihaId = zaznamPozKnih.get(i).knihaId;
             }
         }
         return pk;
@@ -142,7 +159,7 @@ public class Controller {
     @DeleteMapping("/api/borrowing/{id}") // delete the borrowing by id
     public PozKniha deletePozKniha(@PathVariable long id){
         for(int i = 0; i < zaznamPozKnih.size(); i++){
-            if(zaznamPozKnih.get(i).id == id){
+            if(zaznamPozKnih.get(i).borrowingId == id){
                 zaznamPozKnih.remove(i);
             }
         }
