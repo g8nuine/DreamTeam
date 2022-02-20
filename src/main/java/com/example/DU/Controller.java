@@ -37,7 +37,6 @@ public class Controller {
     }
     @GetMapping("/api/book/{id}")
     public Kniha getKniha(@PathVariable long id) {
-        //TODO
         Kniha k = new Kniha();
         for(int i = 0; i < knihy.size(); i++){
             if(knihy.get(i).id == id){
@@ -51,9 +50,13 @@ public class Controller {
         }
         return k;
     }
-    @DeleteMapping("/api/book")
-    public Kniha deleteKniha() {
-        //TODO
+    @DeleteMapping("/api/book/{id}")
+    public Kniha deleteKniha(@PathVariable long id) {
+        for(int i = 0; i < knihy.size(); i++){
+            if(knihy.get(i).id == id) {
+                knihy.remove(i);
+            }
+        }
         return null;
     }
 
