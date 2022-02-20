@@ -1,6 +1,7 @@
 package com.example.DU;
 
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
@@ -14,16 +15,17 @@ public class Controller {
     private final List<Klient> klienty = new ArrayList<>();
     private final List<PozKniha> zaznamPozKnih = new ArrayList<>();
 
+    /*-------------------------Knihy-------------------*/
     @PostMapping("/api/book")
     public Kniha create(@RequestBody Kniha kniha){
         knihy.add(kniha);
         return kniha;
     }
     @PostMapping("/api/book/by-name") //create book
-    public Kniha create(@RequestParam long id, String name, String isbn, String menoAutor, String priezviskoAutor, int pocetKnih) {
+    public Kniha create(@RequestParam long id, String nazov, String isbn, String menoAutor, String priezviskoAutor, int pocetKnih) {
         Kniha kniha = new Kniha();
         kniha.id = id;
-        kniha.name = name;
+        kniha.nazov = nazov;
         kniha.isbn = isbn;
         kniha.menoAutor = menoAutor;
         kniha.priezviskoAutor = priezviskoAutor;
@@ -41,7 +43,7 @@ public class Controller {
         for(int i = 0; i < knihy.size(); i++){
             if(knihy.get(i).id == id){
                 k.id = knihy.get(i).id;
-                k.name = knihy.get(i).name;
+                k.nazov = knihy.get(i).nazov;
                 k.menoAutor = knihy.get(i).menoAutor;
                 k.priezviskoAutor = knihy.get(i).priezviskoAutor;
                 k.isbn = knihy.get(i).isbn;
@@ -50,6 +52,8 @@ public class Controller {
         }
         return k;
     }
+
+
     @DeleteMapping("/api/book/{id}") // delete the book by id
     public Kniha deleteKniha(@PathVariable long id) {
         for(int i = 0; i < knihy.size(); i++){
@@ -60,6 +64,7 @@ public class Controller {
         return null;
     }
 
+    /*--------------------Klienty------------------*/
     @PostMapping("/api/customers")
     public Klient create(@RequestBody Klient klient){
         klienty.add(klient);
@@ -103,6 +108,7 @@ public class Controller {
         return null;
     }
 
+    /*-------------------PozKnihy------------*/
     @PostMapping("/api/borrowing")
     public PozKniha create(@RequestBody PozKniha pozKniha){
         zaznamPozKnih.add(pozKniha);
