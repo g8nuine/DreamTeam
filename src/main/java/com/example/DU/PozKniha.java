@@ -1,12 +1,12 @@
 package com.example.DU;
 
 public class PozKniha {
-    public long id;
-    public Klient vypozicovatel;
-    public Kniha kniha;
+    public long borrowingId;
+    public long vypozicovatelId;
+    public long knihaId;
 
     public PozKniha(long id) {
-        this.id = id;
+        this.borrowingId = id;
     }
     public PozKniha(){
 
