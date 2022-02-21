@@ -14,17 +14,17 @@ public class Controller {
     private final List<Klient> klienty = new ArrayList<>();
     private final List<PozKniha> zaznamPozKnih = new ArrayList<>();
 
-    @PostMapping("/api/book")
+    @PostMapping("/api/books")
     public Kniha create(@RequestBody Kniha kniha){
         knihy.add(kniha);
         return kniha;
     }
 
-    @PostMapping("/api/book/by-name") //create book
-    public Kniha create(@RequestParam long id, String name, String isbn, String menoAutor, String priezviskoAutor, int pocetKnih) {
+    @PostMapping("/api/books/by-name") //create book
+    public Kniha create(@RequestParam long id, String nazov, String isbn, String menoAutor, String priezviskoAutor, int pocetKnih) {
         Kniha kniha = new Kniha();
         kniha.id = id;
-        kniha.name = name;
+        kniha.nazov = nazov;
         kniha.isbn = isbn;
         kniha.menoAutor = menoAutor;
         kniha.priezviskoAutor = priezviskoAutor;
@@ -33,18 +33,18 @@ public class Controller {
         return kniha;
     }
 
-    @GetMapping("/api/book") // return all books
+    @GetMapping("/api/books") // return all books
     public List<Kniha> getKnihy(){
         return knihy;
     }
 
-    @GetMapping("/api/book/{id}") // find the book by id
+    @GetMapping("/api/books/{id}") // find the book by id
     public Kniha getKniha(@PathVariable long id) {
         Kniha k = new Kniha();
         for(int i = 0; i < knihy.size(); i++){
             if(knihy.get(i).id == id){
                 k.id = knihy.get(i).id;
-                k.name = knihy.get(i).name;
+                k.nazov = knihy.get(i).nazov;
                 k.menoAutor = knihy.get(i).menoAutor;
                 k.priezviskoAutor = knihy.get(i).priezviskoAutor;
                 k.isbn = knihy.get(i).isbn;
@@ -54,11 +54,11 @@ public class Controller {
         return k;
     }
 
-    @PutMapping("/api/book/{id}") //edit books by id
-    public  Kniha editKniha(@PathVariable long id, @RequestParam String name, String isbn, String menoAutor, String priezviskoAutor, int pocetKnih){
+    @PutMapping("/api/books/{id}") //edit books by id
+    public  Kniha editKniha(@PathVariable long id, @RequestParam String nazov, String isbn, String menoAutor, String priezviskoAutor, int pocetKnih){
         for (int i = 0; i< knihy.size(); i++){
             if (knihy.get(i).id == id){
-                knihy.get(i).name = name;
+                knihy.get(i).nazov = nazov;
                 knihy.get(i).menoAutor = menoAutor;
                 knihy.get(i).priezviskoAutor = priezviskoAutor;
                 knihy.get(i).isbn = isbn;
@@ -68,7 +68,7 @@ public class Controller {
         return null;
     }
 
-    @DeleteMapping("/api/book/{id}") // delete the book by id
+    @DeleteMapping("/api/books/{id}") // delete the book by id
     public Kniha deleteKniha(@PathVariable long id) {
         for(int i = 0; i < knihy.size(); i++){
             if(knihy.get(i).id == id){
