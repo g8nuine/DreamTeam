@@ -50,6 +50,19 @@ public class Controller {
         }
         return k;
     }
+    @PutMapping("/api/book/{id}") //edit books by id
+    public  Kniha editKniha(@PathVariable long id, @RequestParam String name, String isbn, String menoAutor, String priezviskoAutor, int pocetKnih){
+        for (int i = 0; i< knihy.size(); i++){
+            if (knihy.get(i).id == id){
+                knihy.get(i).name = name;
+                knihy.get(i).menoAutor = menoAutor;
+                knihy.get(i).priezviskoAutor = priezviskoAutor;
+                knihy.get(i).isbn = isbn;
+                knihy.get(i).pocetKnih = pocetKnih;
+            }
+        }
+        return null;
+    }
     @DeleteMapping("/api/book/{id}") // delete the book by id
     public Kniha deleteKniha(@PathVariable long id) {
         for(int i = 0; i < knihy.size(); i++){
@@ -92,6 +105,17 @@ public class Controller {
             }
         }
         return klient;
+    }
+    @PutMapping("/api/customers/{id}") // edit customers by id
+    public Klient editKlient(@PathVariable long id, @RequestParam String meno, String priezvisko, String email){
+        for (int i = 0; i < klienty.size(); i++){
+            if (klienty.get(i).id == id){
+                klienty.get(i).meno = meno;
+                klienty.get(i).priezvisko = priezvisko;
+                klienty.get(i).email = email;
+            }
+        }
+        return null;
     }
     @DeleteMapping("/api/customers/{id}") // delete the customer by id
     public Klient deleteKlient(@PathVariable long id){
