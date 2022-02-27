@@ -23,6 +23,11 @@ public class BorrowingService {
         borrowing.id = id;
         borrowing.BookId = BookId;
         borrowing.CustomerId = CustomerId;
+        for(int i = 0; i < knihy.size(); i++){
+            if(knihy.get(i).id == BookId){
+                knihy.get(i).pocetKnih--;
+            }
+        }
         borrowings.add(borrowing);
         return borrowing;
     }
