@@ -9,7 +9,6 @@ public class CustomerController {
 
     private CustomerService customerService;
     public CustomerController(CustomerService customerService) {this.customerService = customerService;}
-    private final List<Customer> customers = new ArrayList<>();
 
     @PostMapping("/api/customers")
     public Customer create(@RequestBody Customer customer) {

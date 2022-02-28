@@ -12,7 +12,6 @@ public class BookController {
     public BookController(BookService bookService) {
         this.bookService = bookService;
     }
-    private final List<Kniha> knihy = new ArrayList<>();
 
     @PostMapping("/api/books")
     public Kniha create(@RequestBody Kniha kniha){
