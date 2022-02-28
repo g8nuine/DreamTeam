@@ -28,6 +28,7 @@ public class CustomerService {
         Customer c = new Customer();
         for(int i =0; i < customers.size(); i++){
             if(customers.get(i).id == id) {
+                c.id = customers.get(i).id;
                 c.meno = customers.get(i).meno;
                 c.priezvisko = customers.get(i).priezvisko;
                 c.email = customers.get(i).email;
