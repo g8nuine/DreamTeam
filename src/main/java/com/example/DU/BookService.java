@@ -11,6 +11,22 @@ import java.util.List;
 public class BookService {
     private final List<Kniha> knihy = new ArrayList<>();
 
+    public void setterPlusList(long BookId){
+        for(int i = 0; i < knihy.size(); i++){
+            if(knihy.get(i).id == BookId){
+                knihy.get(i).pocetKnih++;
+            }
+        }
+    }
+
+    public void setterMinusList(long BookId){
+        for(int i = 0; i < knihy.size(); i++){
+            if(knihy.get(i).id == BookId){
+                knihy.get(i).pocetKnih--;
+            }
+        }
+    }
+
     public Kniha create(Kniha kniha){
         knihy.add(kniha);
         return kniha;

@@ -7,10 +7,11 @@ import java.util.List;
 @RestController
 public class BorrowingController {
     private BorrowingService borrowingService;
-    public BorrowingController(BorrowingService borrowingService) {
+    private BookService bookService;
+    public BorrowingController(BorrowingService borrowingService, BookService bookService) {
         this.borrowingService = borrowingService;
+        this.bookService = bookService;
     }
-    private final List<Borrowing> borrowings = new ArrayList<>();
 
     @PostMapping("/api/borrowings")
     public Borrowing create(@RequestBody Borrowing borrowing){
@@ -20,6 +21,7 @@ public class BorrowingController {
 
     @PostMapping("/api/borrowings/by-name") //create borrowing
     public Borrowing create(@RequestParam long id, long BookId, long CustomerId) {
+        bookService.setterMinusList(BookId);
         return borrowingService.create(id, BookId, CustomerId);
     }
 
@@ -40,6 +42,7 @@ public class BorrowingController {
 
     @DeleteMapping("/api/borrowings/{id}") // delete the borrowing by id
     public Borrowing deleteBorrowing(@PathVariable long id) {
+        bookService.setterPlusList(borrowingService.getterBookId(id));
         return borrowingService.deleteBorrowing(id);
     }
 }

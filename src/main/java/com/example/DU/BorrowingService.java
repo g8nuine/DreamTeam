@@ -11,7 +11,15 @@ import java.util.List;
 @Service
 public class BorrowingService {
     private final List<Borrowing> borrowings = new ArrayList<>();
-    private final List<Kniha> knihy = new ArrayList<>();
+
+    public long getterBookId(long Id){
+        for(int i = 0; i < borrowings.size();i++){
+            if(borrowings.get(i).id == Id){
+                return borrowings.get(i).BookId;
+            }
+        }
+        return 0;
+    }
 
     public Borrowing create(Borrowing borrowing){
         borrowings.add(borrowing);
@@ -23,11 +31,6 @@ public class BorrowingService {
         borrowing.id = id;
         borrowing.BookId = BookId;
         borrowing.CustomerId = CustomerId;
-        for(int i = 0; i < knihy.size(); i++){
-            if(knihy.get(i).id == BookId){
-                knihy.get(i).pocetKnih--;
-            }
-        }
         borrowings.add(borrowing);
         return borrowing;
     }
@@ -64,11 +67,6 @@ public class BorrowingService {
     public Borrowing deleteBorrowing(long id) {
         for(int i = 0; i < borrowings.size(); i++){
             if(borrowings.get(i).id == id){
-                for (int j = 0; j < knihy.size(); j++){
-                    if(knihy.get(j).id == borrowings.get(i).BookId){
-                        knihy.get(j).pocetKnih ++;
-                    }
-                }
                 borrowings.remove(i);
             }
         }
