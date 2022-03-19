@@ -1,16 +1,26 @@
 package com.example.DU;
 
-public class Book {
-    private long id;
-    private String name;
-    private String author;
-    private String title;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
-    public long getId() {
+@Entity
+public class Book {
+
+    @Id
+    @GeneratedValue
+    private Long id;
+    private String name;
+    private String isbn;
+    private String authorFirstName;
+    private String authorSecondName;
+    private int bookCount;
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -22,13 +32,35 @@ public class Book {
         this.name = name;
     }
 
-    public String getAuthor() {
-        return author;
+    public String getIsbn() {
+        return isbn;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
     }
 
-    public String getTitle() {return title;}
+    public String getAuthorFirstName() {
+        return authorFirstName;
+    }
+
+    public void setAuthorFirstName(String authorFirstName) {
+        this.authorFirstName = authorFirstName;
+    }
+
+    public String getAuthorSecondName() {
+        return authorSecondName;
+    }
+
+    public void setAuthorSecondName(String authorSecondName) {
+        this.authorSecondName = authorSecondName;
+    }
+
+    public int getBookCount() {
+        return bookCount;
+    }
+
+    public void setBookCount(int bookCount) {
+        this.bookCount = bookCount;
+    }
 }

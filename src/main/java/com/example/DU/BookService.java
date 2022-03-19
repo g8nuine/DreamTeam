@@ -2,46 +2,35 @@ package com.example.DU;
 
 import org.springframework.stereotype.Service;
 
-import java.util.LinkedList;
+import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BookService {
-    private BookRepository br;
+    private final BookRepository bookRepository;
 
-    public BookService(BookRepository br) {
-        this.br = br;
+    public BookService(BookRepository bookRepository) {
+        this.bookRepository = bookRepository;
     }
 
-    List<Book> books = new LinkedList();
+    public List<BookDto> getBooks(String bookAuthor) {return null;}
 
-    public Book getBook(long id) {
-        for(Book b : books) {
-            if (b.getId() == id) {
-                return b;
-            }
+    @Transactional
+    public BookDto getBook(Long BookId) {
+        Optional<BookEntity> byId = bookRepository.findById(BookId);
+
+        if(byId.isPresent()) {
+            return mapToBookDto(byId.get());
         }
         return null;
     }
 
-    public Long createBook(Book book) {
-        BookEntity be = new BookEntity();
-        be.setAuthor(book.getAuthor());
-        be.setTitle(book.getTitle());
-        return be.getId();
-    }
+    private static BookDto mapToBookDto(BookEntity bookEntity) {
+        BookDto bookDto = new BookDto();
 
-    public void deleteBook(long id) {
-        for(Book b : books) {
-            if (b.getId() == id) {
-                books.remove(b);
-            }
-        }
-        return;
-    }
-
-    public void updateBook(Book book) {
-        //TODO
-        return;
+        bookDto.setAuthor(bookEntity.getAuthor());
+        bookDto.setTitle(bookEntity.getTitle());
+        return bookDto;
     }
 }

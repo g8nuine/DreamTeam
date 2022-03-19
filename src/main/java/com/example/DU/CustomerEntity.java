@@ -8,27 +8,29 @@ import javax.persistence.Id;
 public class CustomerEntity {
     @Id
     @GeneratedValue
+    private Long id;
 
-    private long id;
-    private String meno;
-    private String priezvisko;
+    private String firstname;
 
-    public void setId(long id){
-       this.id = id;
-    }
-    public long getId(){
+    private String secondname;
+
+    public Long getId() {
         return id;
     }
-    public void setMeno(String meno){
-       this.meno = meno;
+
+    public void setId(Long id) {
+        this.id = id;
     }
-    public String getMeno(){
-        return meno;
+
+    public String getFirstname() {
+        return firstname;
     }
-    public void setPriezvisko(String priezvisko){
-       this.priezvisko = priezvisko;
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
-    public void save(CustomerEntity customerEntity){
-        //TODO
-    }
+
+    public String getSecondname() { return secondname; }
+
+    public void setSecondname(String secondname) { this.secondname = secondname; }
 }
