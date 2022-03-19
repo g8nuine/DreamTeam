@@ -8,8 +8,7 @@ import javax.persistence.Id;
 public class BookEntity {
     @Id
     @GeneratedValue
-
-    private long id;
+    private Long id;
 
     private String author;
 

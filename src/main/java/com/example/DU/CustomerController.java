@@ -6,8 +6,7 @@ import java.util.List;
 
 @RestController
 public class CustomerController {
-
-    private CustomerService customerService;
+/*    private CustomerService customerService;
     public CustomerController(CustomerService customerService) {this.customerService = customerService;}
 
     @PostMapping("/api/customers")
@@ -33,4 +32,6 @@ public class CustomerController {
 
     @DeleteMapping("/api/customers/{id}") // delete customer by id
     public Customer deleteCustomer(@PathVariable long id) { return customerService.deleteCustomer(id); }
+*/
 }
+

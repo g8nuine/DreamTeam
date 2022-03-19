@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class BookController {
-    private BookService bookService;
+/*    private BookService bookService;
 
     public BookController(BookService bookService) {this.bookService = bookService; }
 
@@ -22,6 +22,6 @@ public class BookController {
     @PutMapping("/api/books/id")
     public void updateBook(@PathVariable long id, @RequestBody Book book) {
         bookService.updateBook(book);
-    }
+    } */
 
 }

@@ -1,19 +1,49 @@
 package com.example.DU;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Customer {
-    public long id;
-    public String meno;
-    public String priezvisko;
-    public String email;
 
-    public Customer(long id, String meno, String priezvisko, String email) {
-        this.id = id;
-        this.meno = meno;
-        this.priezvisko = priezvisko;
-        this.email = email;
+    @Id
+    @GeneratedValue
+    private Integer id;
+    private String firstname;
+    private String secondname;
+    private String email;
+
+    public Integer getId() {
+        return id;
     }
-    public Customer() {
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getSecondname() {
+        return secondname;
+    }
+
+    public void setSecondname(String secondname) {
+        this.secondname = secondname;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
 

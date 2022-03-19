@@ -2,57 +2,35 @@ package com.example.DU;
 
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CustomerService {
-    private final List<Customer> customers = new ArrayList<>();
+    private final CustomerRepository customerRepository;
 
-    public Customer create(Customer customer) {
-        customers.add(customer);
-        return customer;
+    public CustomerService(CustomerRepository customerRepository) {
+        this.customerRepository = customerRepository;
     }
 
-    public Customer create(long id, String meno, String priezvisko, String email) {
-        Customer customer = new Customer();
-        customer.id = id;
-        customer.meno = meno;
-        customer.priezvisko = priezvisko;
-        customer.email = email;
-        customers.add(customer);
-        return customer;
-    }
-    public List<Customer> getCustomers(){return customers;}
-    public Customer getCustomer(long id) {
-        Customer c = new Customer();
-        for(int i =0; i < customers.size(); i++){
-            if(customers.get(i).id == id) {
-                c.id = customers.get(i).id;
-                c.meno = customers.get(i).meno;
-                c.priezvisko = customers.get(i).priezvisko;
-                c.email = customers.get(i).email;
-            }
-        }
-        return c;
-    }
+    public List<CustomerDto> getCustomers(String customerName) {return null;}
 
-    public Customer editCustomer(long id, String meno, String priezvisko, String email) {
-        for(int i =0; i < customers.size(); i++) {
-            if (customers.get(i).id == id) {
-                customers.get(i).meno = meno;
-                customers.get(i).priezvisko = priezvisko;
-                customers.get(i).email = email;
-            }
+    @Transactional
+    public CustomerDto getCustomer(Long CustomerId) {
+        Optional<CustomerEntity> byId = customerRepository.findById(CustomerId);
+
+        if(byId.isPresent()) {
+            return mapToCustomerDto(byId.get());
         }
         return null;
     }
-    public Customer deleteCustomer(long id) {
-        for(int i = 0; i < customers.size(); i++){
-            if(customers.get(i).id == id) {
-                customers.remove(i);
-            }
-            }
-        return null;
+
+    private static CustomerDto mapToCustomerDto(CustomerEntity customerEntity) {
+        CustomerDto customerDto = new CustomerDto();
+
+        customerDto.setFirstname(customerEntity.getFirstname());
+        customerDto.setSecondname(customerEntity.getSecondname());
+        return customerDto;
     }
 }
